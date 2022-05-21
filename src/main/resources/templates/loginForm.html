@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/main.css"/>
 </head>
 <body>
 <div id="login-container">
-    <h1 class="title">Enter your username</h1>
-    <form id="loginForm" name="loginForm" method="POST">
-        <label>Login: </label>
-        <br/>
-        <input type="text" name="username"/>
-        <br/>
-        <button type="submit">Enter</button>
-    </form>
+    <div>
+        <h1 class="title">Simple Chat</h1>
+        <h2>Log in</h2>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <input type="text" placeholder="Login" name="username"/>
+            </div>
+            <div>
+                <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <div>
+                <button type="submit">Enter</button>
+                <a href="/register">Registration</a>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

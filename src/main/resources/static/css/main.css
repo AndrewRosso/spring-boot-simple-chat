@@ -19,30 +19,32 @@ html, body {
 
 .user-container {
     float: right;
-    margin-right:5px;
+    margin-right: 5px;
 }
 
-.nickname  {
-    color:blue;margin-right:20px;
+.nickname {
+    color: blue;
+    margin-right: 20px;
 }
 
-.time-date  {
-    color: rgba(12, 11, 11, 0.47);margin-right:20px;
+.time-date {
+    color: rgba(12, 11, 11, 0.47);
+    margin-right: 20px;
     font-size: 60%;
     float: right;
 }
 
 #login-container {
-    background: #f4f6f6 ;
+    background: #f4f6f6;
     border: 2px solid #ccc;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     display: inline-block;
-    margin-top: 42px;
+    margin-top: 22px;
     vertical-align: middle;
     position: relative;
-    padding: 35px 55px 35px;
-    min-height: 250px;
+    padding: 5px 5px 25px;
+    min-height: 100px;
     position: absolute;
     top: 50%;
     left: 0;
@@ -50,6 +52,13 @@ html, body {
     margin: 0 auto;
     margin-top: -160px;
 }
+
+#login-container div {
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
 
 #chat-container {
     position: relative;
@@ -62,7 +71,7 @@ html, body {
 
 #chat-container {
     border: 2px solid #d5dbdb;
-    background-color:  #d5dbdb ;
+    background-color: #d5dbdb;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -115,7 +124,7 @@ html, body {
     position: relative;
 }
 
-#messageForm .input-message  {
+#messageForm .input-message {
     float: left;
     width: calc(100% - 85px);
 }
