@@ -22,6 +22,9 @@
                 <button type="submit">Enter</button>
                 <a href="/register">Registration</a>
             </div>
+            <div th:if="${param.error}">
+                <strong style="color:red"  th:text="${errorMessage}"> </strong>
+            </div>
         </form>
     </div>
 </div>

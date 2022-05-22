@@ -5,8 +5,10 @@ import com.example.simplechat.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +21,6 @@ public class MainController {
     public static final String REGISTER_FORM = "registerForm";
     public static final String CHAT_PAGE = "chatPage";
     public static final String REDIRECT_LOGIN = "redirect:/login";
-    public static final String REDIRECT_REGISTER = "redirect:/register";
     public static final String LOGIN = "login";
     private final MemberService memberService;
 
@@ -33,7 +34,11 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(
+            @RequestParam(value = "error", defaultValue = "false") boolean loginError, Model model) {
+        if (loginError) {
+            model.addAttribute("errorMessage", "Login and password do not match");
+        }
         return LOGIN_FORM;
     }
 
@@ -51,11 +56,16 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String registerMember(@Valid Member member) {
-        if (memberService.findByLogin(member.getLogin()).orElse(null) != null) {
-            return REDIRECT_REGISTER;
+    public String registerMember(@Valid Member member,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return REGISTER_FORM;
+        } else if (memberService.findByLogin(member.getLogin()).orElse(null) != null) {
+            model.addAttribute("message", "A user with this login already exists");
+            return REGISTER_FORM;
+        } else {
+            memberService.createMember(member);
+            return REDIRECT_LOGIN;
         }
-        memberService.createMember(member);
-        return REDIRECT_LOGIN;
     }
 }
