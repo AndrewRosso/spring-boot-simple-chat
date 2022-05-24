@@ -17,18 +17,17 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void createMember(Member member) {
-        Member memberFromDB = findByLogin(member.getLogin()).orElse(null);
+    @Override
+    public Member createMember(Member member) {
+        Optional<Member> memberFromDB = memberRepository.findById(member.getLogin());
 
-        if (memberFromDB == null) {
+        if (!memberFromDB.isPresent()) {
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             member.setRole(Collections.singletonList(new Role("MEMBER")));
             memberRepository.save(member);
+           return member;
+        } else {
+            return null;
         }
-    }
-
-    @Override
-    public Optional<Member> findByLogin(String login) {
-        return memberRepository.findById(login);
     }
 }

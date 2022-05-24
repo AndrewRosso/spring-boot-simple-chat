@@ -37,7 +37,8 @@ public class MainController {
     public String showLoginForm(
             @RequestParam(value = "error", defaultValue = "false") boolean loginError, Model model) {
         if (loginError) {
-            model.addAttribute("errorMessage", "Login and password do not match");
+            String errorMessage = "Login and password do not match";
+            model.addAttribute("errorMessage", errorMessage);
         }
         return LOGIN_FORM;
     }
@@ -60,7 +61,7 @@ public class MainController {
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return REGISTER_FORM;
-        } else if (memberService.findByLogin(member.getLogin()).orElse(null) != null) {
+        } else if (memberService.createMember(member)==null) {
             model.addAttribute("message", "A user with this login already exists");
             return REGISTER_FORM;
         } else {
